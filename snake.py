@@ -1,5 +1,4 @@
-import turtle
-from vars import *
+from config import *
 
 
 class Snake:
@@ -23,6 +22,9 @@ class Snake:
         self.head.direction = Direction.RIGHT
 
     def move(self):
+        if self.head.direction == Direction.STOP:
+            return
+
         for i in range(len(self.queue) - 1, 0, -1):  # pieces shifting
             self.queue[i].goto(self.queue[i - 1].xcor(), self.queue[i - 1].ycor())
 
@@ -43,9 +45,9 @@ class Snake:
 
 
 class Piece(turtle.Turtle):
-    def __init__(self, color="Grey"):
+    def __init__(self, color='Grey'):
         turtle.Turtle.__init__(self)
-        self.shape("square")
+        self.shape('square')
         self.color(color)
         self.speed(0)
         self.penup()
@@ -53,6 +55,6 @@ class Piece(turtle.Turtle):
 
 class Head(Piece):
     def __init__(self):
-        Piece.__init__(self, "Black")
-        self.goto(-30, 30)
+        Piece.__init__(self, 'Black')
+        self.goto(SNAKE_START)
         self.direction = Direction.STOP
